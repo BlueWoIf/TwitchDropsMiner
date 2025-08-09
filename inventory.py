@@ -14,6 +14,7 @@ from channel import Channel
 from exceptions import GQLException
 from constants import GQL_OPERATIONS, URLType
 from utils import timestamp, invalidate_cache, Game
+import telegram
 
 if TYPE_CHECKING:
     from collections import abc
@@ -176,6 +177,15 @@ class BaseDrop:
                 _("status", "claimed_drop").format(drop=claim_text.replace('\n', ' '))
             )
             self._twitch.gui.tray.notify(claim_text, _("gui", "tray", "notification_title"))
+            
+            telegram_data = self.settings.telegram
+            success = telegram.send_message(
+                bot_token = telegram_data.bot_token,
+                chat_id = telegram_data.chat_id,
+                message = claim_text
+            )
+            if not success:
+                logger.error(f"Failed to send Telegram message!")
         else:
             logger.error(f"Drop claim has potentially failed! Drop ID: {self.id}")
         return result

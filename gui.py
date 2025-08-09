@@ -1528,6 +1528,7 @@ class _SettingsVars(TypedDict):
     language: StringVar
     priority_mode: StringVar
     tray_notifications: IntVar
+    telegram: StringVar
 
 
 class SettingsPanel:
@@ -1553,6 +1554,7 @@ class SettingsPanel:
             "tray": IntVar(master, self._settings.autostart_tray),
             "priority_mode": StringVar(master, self.PRIORITY_MODES[priority_mode]),
             "tray_notifications": IntVar(master, self._settings.tray_notifications),
+            "telegram": StringVar(master, self._settings.telegram),
         }
         self._game_names: set[str] = set()
         master.rowconfigure(0, weight=1)

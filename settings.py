@@ -20,6 +20,7 @@ class SettingsFile(TypedDict):
     connection_quality: int
     tray_notifications: bool
     priority_mode: PriorityMode
+    telegram: dict[str, str]  # bot_token and chat_id
 
 
 default_settings: SettingsFile = {
@@ -31,6 +32,10 @@ default_settings: SettingsFile = {
     "language": DEFAULT_LANG,
     "tray_notifications": True,
     "priority_mode": PriorityMode.PRIORITY_ONLY,
+    "telegram": {
+        "bot_token": "",
+        "chat_id": ""
+    }
 }
 
 
@@ -52,6 +57,7 @@ class Settings:
     connection_quality: int
     tray_notifications: bool
     priority_mode: PriorityMode
+    telegram: dict[str, str]  # bot_token and chat_id
 
     PASSTHROUGH = ("_settings", "_args", "_altered")
 
